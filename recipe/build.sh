@@ -26,12 +26,14 @@ meson_options=(
     -Drelocatable=true
 )
 
-if [[ $(uname) == Darwin ]] ; then
+if [[ $(uname) == Darwin || ${target_platform} == linux-aarch64 ]] ; then
     # Disable X11 since our default Mac environment doesn't provide it (and
     # apparently the build scripts assume that it will be there).
     #
     # Disable manpages since the macOS xsltproc doesn't want to load
     # docbook.xsl remotely in --nonet mode.
+
+    # Also disable X11 if building for linux-aarch64.
     meson_options+=(-Dx11=false -Dman=false)
 fi
 
