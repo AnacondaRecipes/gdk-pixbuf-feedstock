@@ -1,6 +1,6 @@
 {% set name = "gdk-pixbuf" %}
-{% set version = "2.38.2" %}
-{% set sha256 = "73fa651ec0d89d73dd3070b129ce2203a66171dfc0bd2caa3570a9c93d2d0781" %}
+{% set version = "2.42.6" %}
+{% set sha256 = "c4a6b75b7ed8f58ca48da830b9fa00ed96d668d3ab4b1f723dcf902f78bde77f" %}
 
 package:
     name: {{ name|lower }}
@@ -11,8 +11,8 @@ source:
     url: http://ftp.gnome.org/pub/gnome/sources/{{ name }}/{{ '.'.join(version.split('.')[:2]) }}/{{ name }}-{{ version }}.tar.xz
     patches:
       - 0001-changed-perl-script-to-use-env.patch
-      - meson-rpaths-common.patch
-      - meson-rpaths-non-macos.patch  # [not osx]
+      #- meson-rpaths-common.patch
+      #- meson-rpaths-non-macos.patch  # [not osx]
 
 build:
   number: 4
@@ -26,7 +26,7 @@ requirements:
     - pkg-config
     - {{ compiler('c') }}
     # See https://github.com/conda-forge/atk-feedstock/pull/14#issuecomment-610061908
-    - meson 0.53.2
+    - meson 0.55.3
     - ninja
     - cmake                  # [linux and aarch64]
   host:
