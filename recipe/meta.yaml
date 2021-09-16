@@ -20,6 +20,8 @@ build:
   run_exports:
     # https://abi-laboratory.pro/?view=timeline&l=gdk-pixbuf
     - {{ pin_subpackage('gdk-pixbuf', max_pin='x') }}
+  ignore_run_exports:
+    - zlib
 
 requirements:
   build:
@@ -29,6 +31,7 @@ requirements:
     - meson 0.55.3
     - ninja
     - cmake                  # [linux and aarch64]
+    - python
   host:
     - gettext                # [osx]
     - glib
