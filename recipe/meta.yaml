@@ -20,6 +20,8 @@ build:
   run_exports:
     # https://abi-laboratory.pro/?view=timeline&l=gdk-pixbuf
     - {{ pin_subpackage('gdk-pixbuf', max_pin='x') }}
+  ignore_run_exports:
+    - zlib
 
 requirements:
   build:
@@ -31,6 +33,7 @@ requirements:
     - ninja
     - cmake                  # [linux and aarch64]
     - gobject-introspection
+    - python
   host:
     - gettext                # [osx]
     - glib
