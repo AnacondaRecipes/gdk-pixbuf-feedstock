@@ -26,9 +26,11 @@ requirements:
     - pkg-config
     - {{ compiler('c') }}
     # See https://github.com/conda-forge/atk-feedstock/pull/14#issuecomment-610061908
-    - meson 0.55.3
+    - meson ==0.56.2  # [osx and arm64]
+    - meson
     - ninja
     - cmake                  # [linux and aarch64]
+    - gobject-introspection
   host:
     - gettext                # [osx]
     - glib
