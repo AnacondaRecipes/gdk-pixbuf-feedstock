@@ -29,7 +29,7 @@ meson_options_common=(
 meson_options_build=("${meson_options_common[@]}")
 meson_options_host=("${meson_options_common[@]}")
 
-if [[ ${target_platform} == osx-* || ${target_platform} == linux-aarch64 ]] ; then
+if [[ ${target_platform} == osx-* ]] || [[ ${target_platform} == linux-aarch64 ]] ; then
     # Disable X11 since our default Mac environment doesn't provide it (and
     # apparently the build scripts assume that it will be there).
     #
