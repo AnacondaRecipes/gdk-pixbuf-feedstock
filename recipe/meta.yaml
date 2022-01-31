@@ -35,7 +35,9 @@ requirements:
     - cmake                  # [linux]
     - gobject-introspection
     - python
-  host:
+    - patch       # [not win]
+    - m2-patch    # [win]
+   host:
     - gettext                # [osx]
     - glib
     - gobject-introspection
