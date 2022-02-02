@@ -37,7 +37,7 @@ requirements:
     - python
     - patch       # [not win]
     - m2-patch    # [win]
-   host:
+  host:
     - gettext                # [osx]
     - glib
     - gobject-introspection
