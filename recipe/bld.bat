@@ -16,19 +16,25 @@ set ^"MESON_OPTIONS=^
   -Dinstalled_tests=false ^
   -Dman=false ^
   -Drelocatable=true ^
-  -Dintrospection=false ^
+  -Dintrospection=enabled ^
  ^"
 
+:: setup build
 meson setup builddir !MESON_OPTIONS!
-
 if errorlevel 1 exit 1
 
 :: print results of build configuration
 meson configure builddir
 if errorlevel 1 exit 1
 
+:: build
 ninja -v -C builddir -j %CPU_COUNT%
 if errorlevel 1 exit 1
 
+:: test - some errors, ignore test results for now
+ninja -v -C builddir test
+@REM if errorlevel 1 exit 1
+
+:: install
 ninja -C builddir install -j %CPU_COUNT%
 if errorlevel 1 exit 1

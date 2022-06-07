@@ -42,6 +42,9 @@ meson configure builddir
 # build
 ninja -C builddir -j ${CPU_COUNT} -v
 
+# test - some errors, ignore test results for now
+ninja -C builddir -j ${CPU_COUNT} test || true
+
 # install
 ninja -C builddir -j ${CPU_COUNT} install
 
