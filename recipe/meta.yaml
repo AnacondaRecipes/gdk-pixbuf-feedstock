@@ -1,6 +1,6 @@
 {% set name = "gdk-pixbuf" %}
-{% set version = "2.42.6" %}
-{% set sha256 = "c4a6b75b7ed8f58ca48da830b9fa00ed96d668d3ab4b1f723dcf902f78bde77f" %}
+{% set version = "2.42.8" %}
+{% set sha256 = "84acea3acb2411b29134b32015a5b1aaa62844b19c4b1ef8b8971c6b0759f4c6" %}
 
 package:
     name: {{ name|lower }}
@@ -8,21 +8,20 @@ package:
 
 source:
     sha256: {{ sha256 }}
-    url: http://ftp.gnome.org/pub/gnome/sources/{{ name }}/{{ '.'.join(version.split('.')[:2]) }}/{{ name }}-{{ version }}.tar.xz
+    url: https://download.gnome.org/sources/{{ name }}/{{ '.'.join(version.split('.')[:2]) }}/{{ name }}-{{ version }}.tar.xz
     patches:
       - 0001-changed-perl-script-to-use-env.patch
       #- meson-rpaths-common.patch
       #- meson-rpaths-non-macos.patch  # [not osx]
 
 build:
-  number: 5
-  skip: true  # [win and vc<14]
+  number: 0
   run_exports:
     # https://abi-laboratory.pro/?view=timeline&l=gdk-pixbuf
     - {{ pin_subpackage('gdk-pixbuf', max_pin='x') }}
   ignore_run_exports:
     - zlib
-    - jpeg
+  #  - jpeg
 
 requirements:
   build:
@@ -30,16 +29,16 @@ requirements:
     - {{ compiler('c') }}
     # See https://github.com/conda-forge/atk-feedstock/pull/14#issuecomment-610061908
     - meson ==0.56.2  # [osx and arm64]
-    - meson  # [not (osx and arm64)]
-    - ninja
-    - cmake                  # [linux]
+    - meson >=0.55.3  # [not (osx and arm64)]
+    - ninja-base
+  #  - cmake                  # [linux]
     - gobject-introspection
     - python
     - patch       # [not win]
     - m2-patch    # [win]
   host:
     - gettext                # [osx]
-    - glib
+    - glib >=2.56.0
     - gobject-introspection
     - make                   # [not win]
     - jpeg
@@ -48,7 +47,7 @@ requirements:
     - zlib
   run:
     - gettext                # [osx]
-    - glib
+    - glib >=2.56.0
     - gobject-introspection
     - jpeg
     - libtiff
@@ -74,11 +73,19 @@ test:
     - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=libdir --dont-define-prefix {{ pc }}`) do if not exist "%%a/{{ lib }}.lib" exit 1  # [win]
 
 about:
-  home: https://developer.gnome.org/gdk-pixbuf/
+  home: https://www.gtk.org/
   license: LGPL-2.1-or-later
   license_family: LGPL
   license_file: COPYING
-  summary: "GdkPixbuf is a library for image loading and manipulation."
+  summary: GdkPixbuf is a library for image loading and manipulation.
+  description: |
+    GdkPixbuf is a library that loads image data in various formats and stores
+    it as linear buffers in memory. The buffers can then be scaled, composited,
+    modified, saved, or rendered.
+    GdkPixbuf can load image data encoded in different formats, such as:
+    PNG, JPEG, TIFF, TGA, GIF
+  doc_url: https://docs.gtk.org/gdk-pixbuf/
+  dev_url: https://gitlab.gnome.org/GNOME/gdk-pixbuf/
 
 extra:
   recipe-maintainers:

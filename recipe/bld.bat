@@ -12,11 +12,11 @@ set ^"MESON_OPTIONS=^
   --wrap-mode=nofallback ^
   --buildtype=release ^
   --backend=ninja ^
-  -D docs=false ^
-  -D installed_tests=false ^
-  -D man=false ^
-  -D relocatable=true ^
-  -D x11=false ^
+  -DDgtk_doc=false ^
+  -Dinstalled_tests=false ^
+  -Dman=false ^
+  -Drelocatable=true ^
+  -Dintrospection=false ^
  ^"
 
 meson setup builddir !MESON_OPTIONS!
