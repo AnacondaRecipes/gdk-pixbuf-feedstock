@@ -42,6 +42,7 @@ requirements:
     - libtiff
     - libpng
     - zlib
+    - libffi >=3.3           # [win]
   run:
     - gettext                # [osx]
     - glib >=2.56.0
@@ -49,6 +50,7 @@ requirements:
     - libtiff
     - libpng
     - zlib
+    - libffi >=3.3           # [win]
 
 test:
   requires:

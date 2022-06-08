@@ -5,6 +5,11 @@ setlocal EnableDelayedExpansion
 :: (set as env var so it's used by both meson and during build with g-ir-scanner)
 set "PKG_CONFIG_PATH=%LIBRARY_LIB%\pkgconfig;%LIBRARY_PREFIX%\share\pkgconfig"
 
+IF NOT EXIST "%BUILD_PREFIX%\Library\lib\pkgconfig\libffi.pc" (
+    :: our current libffi does not ship with a pkgconfig file.
+    copy "%RECIPE_DIR%\libffi.pc" "%BUILD_PREFIX%\Library\lib\pkgconfig\"
+)
+
 :: meson options
 :: (set pkg_config_path so deps in host env can be found)
 set ^"MESON_OPTIONS=^
@@ -12,7 +17,7 @@ set ^"MESON_OPTIONS=^
   --wrap-mode=nofallback ^
   --buildtype=release ^
   --backend=ninja ^
-  -DDgtk_doc=false ^
+  -Dgtk_doc=false ^
   -Dinstalled_tests=false ^
   -Dman=false ^
   -Drelocatable=true ^
@@ -21,7 +26,10 @@ set ^"MESON_OPTIONS=^
 
 :: setup build
 meson setup builddir !MESON_OPTIONS!
-if errorlevel 1 exit 1
+if errorlevel 1 (
+    type builddir\meson-logs\meson-log.txt
+    exit 1
+)
 
 :: print results of build configuration
 meson configure builddir
