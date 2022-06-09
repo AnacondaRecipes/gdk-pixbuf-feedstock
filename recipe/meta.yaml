@@ -19,22 +19,22 @@ build:
     - {{ pin_subpackage('gdk-pixbuf', max_pin='x') }}
   ignore_run_exports:
     - zlib
-    - jpeg # [win]
+    - jpeg    # [win]
+    - libffi  # [win]
 
 requirements:
   build:
     - pkg-config
     - {{ compiler('c') }}
-    # See https://github.com/conda-forge/atk-feedstock/pull/14#issuecomment-610061908
     - meson ==0.56.2  # [osx and arm64]
     - meson >=0.55.3  # [not (osx and arm64)]
     - ninja-base
-    - gobject-introspection
+    - gobject-introspection  # [not win]
     - python
     - patch       # [not win]
     - m2-patch    # [win]
   host:
-    - gobject-introspection
+    - gobject-introspection  # [not win]
     - python
     - gettext                # [osx]
     - glib >=2.56.0
