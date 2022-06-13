@@ -5,11 +5,6 @@ setlocal EnableDelayedExpansion
 :: (set as env var so it's used by both meson and during build with g-ir-scanner)
 set PKG_CONFIG_PATH="%LIBRARY_LIB%\pkgconfig;%LIBRARY_PREFIX%\share\pkgconfig;%BUILD_PREFIX%\Library\lib\pkgconfig"
 
-IF NOT EXIST "%BUILD_PREFIX%\Library\lib\pkgconfig\libffi.pc" (
-    :: our current libffi does not ship with a pkgconfig file.
-    copy "%RECIPE_DIR%\libffi.pc" "%BUILD_PREFIX%\Library\lib\pkgconfig\"
-)
-
 IF NOT EXIST "%LIBRARY_PREFIX%\lib\libtiff.lib" (
   :: our current libtiff does not ship with libtiff.lib.
   copy "%LIBRARY_PREFIX%"\lib\tiff.lib "%LIBRARY_PREFIX%\lib\libtiff.lib"
