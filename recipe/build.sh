@@ -18,7 +18,9 @@ meson_options_common=(
     --buildtype=release
     --prefix="$PREFIX"
     --backend=ninja
-    -Ddocs=false
+    --wrap-mode=nofallback
+    -Dgtk_doc=false
+    -Dman=false
     -Dgio_sniffing=false
     -Dinstalled_tests=false
     -Dlibdir=lib
@@ -26,35 +28,25 @@ meson_options_common=(
     -Dintrospection=enabled
 )
 
-meson_options_build=("${meson_options_common[@]}")
-meson_options_host=("${meson_options_common[@]}")
-
-if [[ ${target_platform} == osx-* ]] || [[ ${target_platform} == linux-aarch64 ]] ; then
-    # Disable X11 since our default Mac environment doesn't provide it (and
-    # apparently the build scripts assume that it will be there).
-    #
-    # Disable manpages since the macOS xsltproc doesn't want to load
-    # docbook.xsl remotely in --nonet mode.
-
-    # Also disable X11 if building for linux-aarch64.
-    meson_options_host+=(-Dx11=false -Dman=false)
-fi
-
-if [[ "$build_platform" == osx-* ]] ; then
-    meson_options_build+=(-Dx11=false -Dman=false)
-fi
-
-mkdir forgebuild
-cd forgebuild
-
 export PKG_CONFIG="$BUILD_PREFIX/bin/pkg-config"
 export PKG_CONFIG_PATH_FOR_BUILD="$BUILD_PREFIX/lib/pkgconfig"
 export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$PREFIX/lib/pkgconfig"
 export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$BUILD_PREFIX/lib/pkgconfig"
 
-meson "${meson_options_host[@]}" ${MESON_ARGS} --prefix=$PREFIX .. 
-ninja -j$CPU_COUNT -v
-ninja install
+# setup
+meson setup "${meson_options_common[@]}" ${MESON_ARGS} --prefix=$PREFIX builddir
+
+# print build configuration results
+meson configure builddir
+
+# build
+ninja -C builddir -j ${CPU_COUNT} -v
+
+# test - some errors, ignore test results for now
+ninja -C builddir -j ${CPU_COUNT} test || true
+
+# install
+ninja -C builddir -j ${CPU_COUNT} install
 
 cd $PREFIX
 rm -rf share/gtk-doc
