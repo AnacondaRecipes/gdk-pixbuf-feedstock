@@ -26,14 +26,17 @@ requirements:
   build:
     - pkg-config
     - {{ compiler('c') }}
-    - meson ==0.56.2  # [osx and arm64]
-    - meson >=0.55.3  # [not (osx and arm64)]
+    - meson ==0.56.2         # [(osx and arm64)]
+    - meson >=0.55.3         # [not (osx and arm64)]
     - ninja-base
-    - gobject-introspection # [not win]
+    # is disabled as this package contains wrong path configs
+    - gobject-introspection  # [not win]
+    - perl                   # [win]
     - python
-    - patch       # [not win]
-    - m2-patch    # [win]
+    - patch                  # [not win]
+    - m2-patch               # [win]
   host:
+    - gobject-introspection  # [not win]
     - python
     - gettext                # [osx]
     - glib >=2.56.0
@@ -41,7 +44,7 @@ requirements:
     - libtiff
     - libpng
     - zlib
-    - libffi 3.4           # [win]
+    - libffi 3.4             # [win]
   run:
     - gettext                # [osx]
     - glib >=2.56.0
@@ -49,7 +52,7 @@ requirements:
     - libtiff
     - libpng
     - zlib
-    - libffi >=3.4,<3.5           # [win]
+    - libffi >=3.4,<3.5       # [win]
 
 test:
   requires:

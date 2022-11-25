@@ -25,12 +25,13 @@ set ^"MESON_OPTIONS=^
   --wrap-mode=nofallback ^
   --buildtype=release ^
   --backend=ninja ^
+  --docs=false ^
   -Dc_std=c99 ^
   -Dgtk_doc=false ^
   -Dinstalled_tests=false ^
   -Dman=false ^
   -Drelocatable=true ^
-  -Dintrospection=enabled ^
+  -Dintrospection=disabled ^
  ^"
 
 :: setup build
