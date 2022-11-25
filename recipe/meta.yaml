@@ -29,7 +29,7 @@ requirements:
     - meson ==0.56.2  # [osx and arm64]
     - meson >=0.55.3  # [not (osx and arm64)]
     - ninja-base
-    - gobject-introspection
+    - gobject-introspection # [not win]
     - python
     - patch       # [not win]
     - m2-patch    # [win]
