@@ -34,14 +34,14 @@ set ^"MESON_OPTIONS=^
  ^"
 
 :: setup build
-meson setup builddir !MESON_OPTIONS!
+%BUILD_PREFIX%\Scripts\meson.exe setup builddir !MESON_OPTIONS!
 if errorlevel 1 (
     type builddir\meson-logs\meson-log.txt
     exit 1
 )
 
 :: print results of build configuration
-meson configure builddir
+%BUILD_PREFIX%\Scripts\meson.exe configure builddir
 if errorlevel 1 exit 1
 
 :: build
