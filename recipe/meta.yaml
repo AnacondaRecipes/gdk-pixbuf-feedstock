@@ -13,14 +13,13 @@ source:
       - 0001-changed-perl-script-to-use-env.patch
 
 build:
-  number: 0
+  number: 1
   run_exports:
     # https://abi-laboratory.pro/?view=timeline&l=gdk-pixbuf
     - {{ pin_subpackage('gdk-pixbuf', max_pin='x') }}
   ignore_run_exports:
     - zlib
     - jpeg    # [win]
-    - libffi  # [win]
 
 requirements:
   build:
@@ -29,12 +28,12 @@ requirements:
     - meson ==0.56.2  # [osx and arm64]
     - meson >=0.55.3  # [not (osx and arm64)]
     - ninja-base
-    - gobject-introspection  # [not win]
+    - gobject-introspection
     - python
     - patch       # [not win]
     - m2-patch    # [win]
   host:
-    - gobject-introspection  # [not win]
+    - gobject-introspection
     - python
     - gettext                # [osx]
     - glib >=2.56.0
@@ -42,7 +41,7 @@ requirements:
     - libtiff
     - libpng
     - zlib
-    - libffi >=3.3           # [win]
+    - libffi 3.4           # [win]
   run:
     - gettext                # [osx]
     - glib >=2.56.0
@@ -50,7 +49,7 @@ requirements:
     - libtiff
     - libpng
     - zlib
-    - libffi >=3.3           # [win]
+    - libffi >=3.4,<3.5           # [win]
 
 test:
   requires:

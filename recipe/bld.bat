@@ -30,8 +30,8 @@ set ^"MESON_OPTIONS=^
   -Dinstalled_tests=false ^
   -Dman=false ^
   -Drelocatable=true ^
-  -Dintrospection=disabled ^
- ^"
+  -Dintrospection=enabled ^
+  ^"
 
 :: setup build
 meson setup builddir !MESON_OPTIONS!
