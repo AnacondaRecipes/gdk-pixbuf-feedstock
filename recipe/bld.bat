@@ -4,6 +4,8 @@ setlocal EnableDelayedExpansion
 :: set pkg-config path so that host deps can be found
 :: (set as env var so it's used by both meson and during build with g-ir-scanner)
 set PKG_CONFIG_PATH="%LIBRARY_LIB%\pkgconfig;%LIBRARY_PREFIX%\share\pkgconfig;%BUILD_PREFIX%\Library\lib\pkgconfig"
+set PKG_CONFIG="%BUILD_PREFIX%\Library\bin\pkg-config"
+set PKG_CONFIG_PATH_FOR_BUILD="%BUILD_PREFIX%\Library\lib\pkgconfig"
 
 IF NOT EXIST "%LIBRARY_PREFIX%\lib\libtiff.lib" (
   :: our current libtiff does not ship with libtiff.lib.
