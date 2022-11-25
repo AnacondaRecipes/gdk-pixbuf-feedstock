@@ -33,7 +33,6 @@ requirements:
     - patch       # [not win]
     - m2-patch    # [win]
   host:
-    - gobject-introspection
     - python
     - gettext                # [osx]
     - glib >=2.56.0
