@@ -23,7 +23,7 @@ build:
 
 requirements:
   build:
-    - pkg-config
+    - pkg-config  # [not win]
     - {{ compiler('c') }}
     - meson ==0.56.2  # [osx and arm64]
     - meson >=0.55.3  # [not (osx and arm64)]

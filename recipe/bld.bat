@@ -4,8 +4,6 @@ setlocal EnableDelayedExpansion
 :: set pkg-config path so that host deps can be found
 :: (set as env var so it's used by both meson and during build with g-ir-scanner)
 set PKG_CONFIG_PATH="%LIBRARY_LIB%\pkgconfig;%LIBRARY_PREFIX%\share\pkgconfig;%BUILD_PREFIX%\Library\lib\pkgconfig"
-set PKG_CONFIG="%BUILD_PREFIX%\Library\bin\pkg-config"
-set PKG_CONFIG_PATH_FOR_BUILD="%BUILD_PREFIX%\Library\lib\pkgconfig"
 
 IF NOT EXIST "%LIBRARY_PREFIX%\lib\libtiff.lib" (
   :: our current libtiff does not ship with libtiff.lib.
@@ -21,6 +19,7 @@ if %errorlevel%==0 (
 
 :: meson options
 :: (set pkg_config_path so deps in host env can be found)
+:: introspection disabled for now.
 set ^"MESON_OPTIONS=^
   --prefix="%LIBRARY_PREFIX%" ^
   --wrap-mode=nofallback ^
@@ -32,7 +31,7 @@ set ^"MESON_OPTIONS=^
   -Dman=false ^
   -Drelocatable=true ^
   -Dintrospection=enabled ^
-  ^"
+ ^"
 
 :: setup build
 meson setup builddir !MESON_OPTIONS!
@@ -46,13 +45,13 @@ meson configure builddir
 if errorlevel 1 exit 1
 
 :: build
-meson install -C builddir -j %CPU_COUNT%
+ninja -v -C builddir -j %CPU_COUNT%
 if errorlevel 1 exit 1
 
 :: test - some errors, ignore test results for now
-::ninja -v -C builddir test
+ninja -v -C builddir test
 @REM if errorlevel 1 exit 1
 
 :: install
-meson install -C builddir -j %CPU_COUNT%
+ninja -C builddir install -j %CPU_COUNT%
 if errorlevel 1 exit 1
