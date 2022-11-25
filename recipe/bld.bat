@@ -21,7 +21,6 @@ if %errorlevel%==0 (
 
 :: meson options
 :: (set pkg_config_path so deps in host env can be found)
-:: introspection disabled for now.
 set ^"MESON_OPTIONS=^
   --prefix="%LIBRARY_PREFIX%" ^
   --wrap-mode=nofallback ^
@@ -46,6 +45,7 @@ if errorlevel 1 (
 meson configure builddir
 if errorlevel 1 exit 1
 
+cd builddir
 :: build
 ninja -v -C builddir -j %CPU_COUNT%
 if errorlevel 1 exit 1
