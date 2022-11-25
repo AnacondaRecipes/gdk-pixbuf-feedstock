@@ -29,12 +29,12 @@ requirements:
     - meson >=0.55.3  # [not (osx and arm64)]
     - ninja-base
     - gobject-introspection
-    - python
+    #- python
     - patch       # [not win]
     - m2-patch    # [win]
   host:
     - gobject-introspection
-    - python
+    #- python
     - gettext                # [osx]
     - glib >=2.56.0
     - jpeg
