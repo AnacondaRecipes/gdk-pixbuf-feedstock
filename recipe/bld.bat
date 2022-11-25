@@ -35,7 +35,7 @@ set ^"MESON_OPTIONS=^
   ^"
 
 :: setup build
-meson setup builddir !MESON_OPTIONS!
+meson setup builddir !MESON_OPTIONS! .
 if errorlevel 1 (
     type builddir\meson-logs\meson-log.txt
     exit 1
@@ -45,15 +45,14 @@ if errorlevel 1 (
 meson configure builddir
 if errorlevel 1 exit 1
 
-cd builddir
 :: build
-ninja -v -C builddir -j %CPU_COUNT%
+meson install -C builddir -j %CPU_COUNT%
 if errorlevel 1 exit 1
 
 :: test - some errors, ignore test results for now
-ninja -v -C builddir test
+::ninja -v -C builddir test
 @REM if errorlevel 1 exit 1
 
 :: install
-ninja -C builddir install -j %CPU_COUNT%
+meson install -C builddir -j %CPU_COUNT%
 if errorlevel 1 exit 1
