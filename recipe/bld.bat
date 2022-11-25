@@ -17,6 +17,8 @@ if %errorlevel%==0 (
     powershell -Command "(gc %LIBRARY_LIB%\pkgconfig\gio-2.0.pc) -replace 'C:/ci_310/glib_1642686432177/_h_env/Library/lib/z.lib', '' | Out-File -encoding ASCII %LIBRARY_LIB%\pkgconfig\gio-2.0.pc"
 )
 
+%PYTHON% -m pip install meson-python
+
 :: meson options
 :: (set pkg_config_path so deps in host env can be found)
 :: introspection disabled for now.
@@ -31,17 +33,17 @@ set ^"MESON_OPTIONS=^
   -Dman=false ^
   -Drelocatable=true ^
   -Dintrospection=enabled ^
- ^"
+  ^"
 
 :: setup build
-%BUILD_PREFIX%\Scripts\meson.exe setup builddir !MESON_OPTIONS!
+meson setup builddir !MESON_OPTIONS!
 if errorlevel 1 (
     type builddir\meson-logs\meson-log.txt
     exit 1
 )
 
 :: print results of build configuration
-%BUILD_PREFIX%\Scripts\meson.exe configure builddir
+meson configure builddir
 if errorlevel 1 exit 1
 
 :: build
