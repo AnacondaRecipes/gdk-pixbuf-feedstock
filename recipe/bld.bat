@@ -35,7 +35,7 @@ set ^"MESON_OPTIONS=^
   ^"
 
 :: setup build
-meson setup builddir !MESON_OPTIONS! .
+meson setup builddir !MESON_OPTIONS!
 if errorlevel 1 (
     type builddir\meson-logs\meson-log.txt
     exit 1
