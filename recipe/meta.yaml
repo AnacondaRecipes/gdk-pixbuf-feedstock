@@ -26,28 +26,27 @@ requirements:
     - meson >=0.55.3         # [not (osx and arm64)]
     - ninja-base
     # is disabled as this package contains wrong path configs
-    - gobject-introspection  # [not win]
+    - gobject-introspection 1.* # [not win]
     - perl                   # [win]
     - python
     - patch                  # [not win]
     - m2-patch               # [win]
   host:
-    - gobject-introspection  # [not win]
     - python
-    - gettext                # [osx]
+    - gettext 0.21.0  # [osx]
     - glib >=2.56.0
-    - jpeg
-    - libtiff
-    - libpng
-    - zlib
+    - jpeg 9e
+    - libtiff 4.2.0
+    - libpng 1.6.37
+    - zlib 1.2.13
     - libffi 3.4             # [win]
   run:
-    - gettext                # [osx]
+    - gettext >=0.21.0,<1.0a0  # [osx]
     - glib >=2.56.0
-    - jpeg
-    - libtiff
-    - libpng
-    - zlib
+    - jpeg >=9e,<10a
+    - libtiff >=4.2.0,<5.0a0
+    - libpng >=1.6.37,<1.7.0a0
+    - zlib >=1.2.13,<1.3.0a0
     - libffi >=3.4,<3.5       # [win]
 
 test:
@@ -80,7 +79,7 @@ about:
     modified, saved, or rendered.
     GdkPixbuf can load image data encoded in different formats, such as:
     PNG, JPEG, TIFF, TGA, GIF
-  doc_url: https://docs.gtk.org/gdk-pixbuf/
+  doc_url: https://docs.gtk.org/
   dev_url: https://gitlab.gnome.org/GNOME/gdk-pixbuf/
 
 extra:
