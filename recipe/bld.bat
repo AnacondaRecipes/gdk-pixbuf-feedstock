@@ -4,18 +4,14 @@ setlocal EnableDelayedExpansion
 :: set pkg-config path so that host deps can be found
 :: (set as env var so it's used by both meson and during build with g-ir-scanner)
 set PKG_CONFIG_PATH="%LIBRARY_LIB%\pkgconfig;%LIBRARY_PREFIX%\share\pkgconfig;%BUILD_PREFIX%\Library\lib\pkgconfig"
+set PKG_CONFIG_EXECUTABLE=%LIBRARY_BIN%\pkg-config
 
 IF NOT EXIST "%LIBRARY_PREFIX%\lib\libtiff.lib" (
   :: our current libtiff does not ship with libtiff.lib.
   copy "%LIBRARY_PREFIX%"\lib\tiff.lib "%LIBRARY_PREFIX%\lib\libtiff.lib"
 )
 
-findstr /m "C:/ci_310/glib_1642686432177/_h_env/Library/lib/z.lib" "%LIBRARY_LIB%\pkgconfig\gio-2.0.pc"
-if %errorlevel%==0 (
-    :: our current glib gio-2.0.pc has zlib dependency set as an absolute path. 
-    powershell -Command "(gc %LIBRARY_LIB%\pkgconfig\gio-2.0.pc) -replace 'Requires:', 'Requires: zlib,' | Out-File -encoding ASCII %LIBRARY_LIB%\pkgconfig\gio-2.0.pc"
-    powershell -Command "(gc %LIBRARY_LIB%\pkgconfig\gio-2.0.pc) -replace 'C:/ci_310/glib_1642686432177/_h_env/Library/lib/z.lib', '' | Out-File -encoding ASCII %LIBRARY_LIB%\pkgconfig\gio-2.0.pc"
-)
+set PATH=%LIBRARY_BIN%;%PREFIX%\bin;%PATH%
 
 :: meson options
 :: (set pkg_config_path so deps in host env can be found)
@@ -30,18 +26,19 @@ set ^"MESON_OPTIONS=^
   -Dinstalled_tests=false ^
   -Dman=false ^
   -Drelocatable=true ^
-  -Dintrospection=disabled ^
+  -Dintrospection=enabled ^
+  -D docs=false ^
  ^"
 
 :: setup build
-meson setup builddir !MESON_OPTIONS!
+%PREFIX%\Scripts\meson setup builddir !MESON_OPTIONS!
 if errorlevel 1 (
     type builddir\meson-logs\meson-log.txt
     exit 1
 )
 
 :: print results of build configuration
-meson configure builddir
+%PREFIX%\Scripts\meson meson configure builddir
 if errorlevel 1 exit 1
 
 :: build

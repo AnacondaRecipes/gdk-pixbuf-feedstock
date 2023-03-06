@@ -2,6 +2,8 @@
 
 set -xeo pipefail
 
+export PATH="${PREFIX}/bin:${PATH}"
+
 if [[ "$(uname)" = Darwin ]] ; then
     # The -dead_strip_dylibs option breaks g-ir-scanner in this package: the
     # scanner links a test executable to find paths to dylibs, but with this
