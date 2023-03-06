@@ -30,10 +30,9 @@ meson_options_common=(
     -Dintrospection=enabled
 )
 
-export PKG_CONFIG="$BUILD_PREFIX/bin/pkg-config"
-export PKG_CONFIG_PATH_FOR_BUILD="$BUILD_PREFIX/lib/pkgconfig"
-export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$PREFIX/lib/pkgconfig"
-export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$BUILD_PREFIX/lib/pkgconfig"
+export PKG_CONFIG_PATH="${BUILD_PREFIX}/bin/pkg-config:${BUILD_PREFIX}/lib/pkgconfig:${PREFIX}/bin/pkg-config:${PREFIX}/lib/pkg-config"
+
+export PKG_CONFIG_EXECUTABLE=${PREFIX}/bin/pkg-config
 
 # setup
 meson setup "${meson_options_common[@]}" ${MESON_ARGS} --prefix=$PREFIX builddir
