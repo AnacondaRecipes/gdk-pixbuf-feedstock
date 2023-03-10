@@ -1,6 +1,6 @@
 {% set name = "gdk-pixbuf" %}
-{% set version = "2.42.8" %}
-{% set sha256 = "84acea3acb2411b29134b32015a5b1aaa62844b19c4b1ef8b8971c6b0759f4c6" %}
+{% set version = "2.42.10" %}
+{% set sha256 = "ee9b6c75d13ba096907a2e3c6b27b61bcd17f5c7ebeab5a5b439d2f2e39fe44b" %}
 
 package:
     name: {{ name|lower }}
@@ -13,31 +13,34 @@ source:
       - 0001-changed-perl-script-to-use-env.patch
 
 build:
-  number: 2
+  number: 0
   run_exports:
     # https://abi-laboratory.pro/?view=timeline&l=gdk-pixbuf
     - {{ pin_subpackage('gdk-pixbuf', max_pin='x') }}
 
 requirements:
   build:
-    - pkg-config
     - {{ compiler('c') }}
-    - meson ==0.56.2         # [(osx and arm64)]
-    - meson >=0.55.3         # [not (osx and arm64)]
-    - ninja-base
-    # is disabled as this package contains wrong path configs
-    - gobject-introspection 1.* # [not win]
-    - perl                   # [win]
-    - python
     - patch                  # [not win]
     - m2-patch               # [win]
+    - gawk  # [not win]
+    - sed   # [not win]
   host:
+    - pkg-config
+    - ninja
+    - perl  # [win]
+    - docutils
+    - gi-docgen
+    - gobject-introspection 1.*
     - python
+    - meson ==0.56.2         # [(osx and arm64)]
+    - meson >=0.55.3         # [not (osx and arm64)]
     - gettext 0.21.0  # [osx]
-    - glib >=2.56.0
+    - libiconv   # [osx or win]
+    - glib >=2.60.0
     - jpeg 9e
     - libtiff 4.2.0
-    - libpng 1.6.37
+    - libpng 1.6.39
     - zlib 1.2.13
     - libffi 3.4             # [win]
   run:
@@ -45,7 +48,7 @@ requirements:
     - glib >=2.56.0
     - jpeg >=9e,<10a
     - libtiff >=4.2.0,<5.0a0
-    - libpng >=1.6.37,<1.7.0a0
+    - libpng >=1.6.39,<1.7.0a0
     - zlib >=1.2.13,<1.3.0a0
     - libffi >=3.4,<3.5       # [win]
 
