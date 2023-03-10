@@ -13,7 +13,7 @@ source:
       - 0001-changed-perl-script-to-use-env.patch
 
 build:
-  number: 3
+  number: 0
   run_exports:
     # https://abi-laboratory.pro/?view=timeline&l=gdk-pixbuf
     - {{ pin_subpackage('gdk-pixbuf', max_pin='x') }}
