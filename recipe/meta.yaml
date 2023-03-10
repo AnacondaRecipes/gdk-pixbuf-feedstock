@@ -21,6 +21,7 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
+    - binutils  # [linux]
     - patch                  # [not win]
     - m2-patch               # [win]
     - gawk  # [not win]
