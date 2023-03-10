@@ -1,6 +1,6 @@
 {% set name = "gdk-pixbuf" %}
-{% set version = "2.42.8" %}
-{% set sha256 = "84acea3acb2411b29134b32015a5b1aaa62844b19c4b1ef8b8971c6b0759f4c6" %}
+{% set version = "2.42.10" %}
+{% set sha256 = "ee9b6c75d13ba096907a2e3c6b27b61bcd17f5c7ebeab5a5b439d2f2e39fe44b" %}
 
 package:
     name: {{ name|lower }}
@@ -23,11 +23,16 @@ requirements:
     - {{ compiler('c') }}
     - patch                  # [not win]
     - m2-patch               # [win]
+    - gawk  # [not win]
+    - m2-gawk  # [win]
+    - sed   # [not win]
+    - m2-sed  # [win]
   host:
     - pkg-config
     - ninja
     - perl  # [win]
     - docutils
+    - gi-docgen
     - gobject-introspection 1.*
     - python
     - meson ==0.56.2         # [(osx and arm64)]
