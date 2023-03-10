@@ -3,7 +3,7 @@ setlocal EnableDelayedExpansion
 
 :: set pkg-config path so that host deps can be found
 :: (set as env var so it's used by both meson and during build with g-ir-scanner)
-set PKG_CONFIG_PATH="%LIBRARY_BIN%\pkgconfig;%LIBRARY_LIB%\pkgconfig;%LIBRARY_PREFIX%\share\pkgconfig;%BUILD_PREFIX%\Library\lib\pkgconfig"
+set PKG_CONFIG_PATH="%LIBRARY_BIN%\pkgconfig;%LIBRARY_LIB%\pkgconfig;%LIBRARY_PREFIX%\share\pkgconfig;%BUILD_PREFIX%\Library\lib\pkgconfig;%BUILD_PREFIX%\Library\bin\pkgconfig"
 set PKG_CONFIG_EXECUTABLE=%LIBRARY_BIN%\pkg-config
 
 IF NOT EXIST "%LIBRARY_PREFIX%\lib\libtiff.lib" (
@@ -30,24 +30,28 @@ set ^"MESON_OPTIONS=^
   -D docs=false ^
  ^"
 
+meson setup --help
+
 :: setup build
-%PREFIX%\Scripts\meson setup builddir !MESON_OPTIONS!
+meson setup builddir !MESON_OPTIONS!
 if errorlevel 1 (
     type builddir\meson-logs\meson-log.txt
     exit 1
 )
 
 :: print results of build configuration
-%PREFIX%\Scripts\meson meson configure builddir
+meson configure builddir
 if errorlevel 1 exit 1
 
+echo "Doing ninja build ..."
 :: build
-ninja -v -C builddir -j %CPU_COUNT%
+ninja -v -C builddir
+:: -j %CPU_COUNT%
 if errorlevel 1 exit 1
 
 :: test - some errors, ignore test results for now
-ninja -v -C builddir test
-@REM if errorlevel 1 exit 1
+ninja -v -C builddir test || cmd /K "exit /b 0"
+if errorlevel 1 exit 1
 
 :: install
 ninja -C builddir install -j %CPU_COUNT%
