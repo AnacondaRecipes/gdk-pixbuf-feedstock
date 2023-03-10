@@ -24,9 +24,7 @@ requirements:
     - patch                  # [not win]
     - m2-patch               # [win]
     - gawk  # [not win]
-    - m2-gawk  # [win]
     - sed   # [not win]
-    - m2-sed  # [win]
   host:
     - pkg-config
     - ninja
