@@ -7,4 +7,3 @@ aggregate_branch: libxml_2.13.1
 
 channels:
   - https://staging.continuum.io/prefect/fs/gettext-feedstock/pr6/c7dfc15
-  - https://staging.continuum.io/prefect/fs/gobject-introspection-feedstock/pr12/cf8c5f9
