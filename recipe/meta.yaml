@@ -27,6 +27,8 @@ requirements:
     - m2-patch               # [win]
     - gawk  # [not win]
     - sed   # [not win]
+    # run-dep as a workaround for now; upstream package still imports from distutils
+    - setuptools <74  # [py>311]
   host:
     - pkg-config
     - ninja
