@@ -14,6 +14,7 @@ source:
 
 build:
   number: 2
+  skip: true  # [s390x]
   run_exports:
     # https://abi-laboratory.pro/?view=timeline&l=gdk-pixbuf
     - {{ pin_subpackage('gdk-pixbuf', max_pin='x') }}
