@@ -29,9 +29,9 @@ requirements:
     - sed   # [not win]
     # setuptools >= 65.0.0 is lacking the msvccompiler module in distutils.
     # https://github.com/pypa/setuptools/pull/3505
-    - setuptools <65
+    - setuptools <74  # [osx and arm64]
   host:
-    - setuptools <65  # [osx and arm64]
+    - setuptools <74  # [osx and arm64]
     - pkg-config
     - ninja
     - perl 5.* # [win]
