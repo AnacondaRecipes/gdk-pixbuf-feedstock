@@ -49,7 +49,7 @@ requirements:
     - libffi {{ libffi }}      # [win]
   run:
     - gettext  # [osx]
-    - glib
+    - glib >=2.56.0
     - jpeg
     - libtiff
     - libpng
