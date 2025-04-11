@@ -2,3 +2,6 @@
 build_parameters:
   - "--suppress-variables"
   - "--error-overlinking"
+
+extra_labels_for_os:
+  osx-64: [ventura]
