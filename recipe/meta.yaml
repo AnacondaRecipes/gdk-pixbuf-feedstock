@@ -39,7 +39,6 @@ requirements:
     - libtiff {{ libtiff }}
     - libpng {{ libpng }}
     - zlib {{ zlib }}
-    # - libffi {{ libffi }}      # [win]
   run:
     - glib >=2.56.0
 
