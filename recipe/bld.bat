@@ -16,7 +16,7 @@ set PATH=%LIBRARY_BIN%;%PREFIX%\bin;%PATH%
 :: meson options
 :: (set pkg_config_path so deps in host env can be found)
 :: introspection disabled for now.
-set "MESON_OPTIONS=^
+set ^"MESON_OPTIONS=^
   --prefix="%LIBRARY_PREFIX%" ^
   --wrap-mode=nofallback ^
   --backend=ninja ^
@@ -27,7 +27,7 @@ set "MESON_OPTIONS=^
   -Dintrospection=enabled ^
   -Ddocumentation=false ^
   -Dtests=false ^
-  -Dinstalled_tests=false"
+  -Dinstalled_tests=false"^
 
 meson setup --help
 
