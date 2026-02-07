@@ -17,17 +17,21 @@ fi
 export CPPFLAGS="$CPPFLAGS -I$PREFIX/include"
 
 meson_options_common=(
-    --buildtype=release
     --prefix="$PREFIX"
     --backend=ninja
     --wrap-mode=nofallback
+    -Dc_std=c99
     -Dgtk_doc=false
     -Dman=false
     -Dgio_sniffing=false
-    -Dinstalled_tests=false
     -Dlibdir=lib
     -Drelocatable=true
     -Dintrospection=enabled
+    -Ddocumentation=false
+    -Dtests=false
+    -Dinstalled_tests=false
+    -Dglycin=disabled
+
 )
 
 export PKG_CONFIG_PATH="${BUILD_PREFIX}/bin/pkg-config:${BUILD_PREFIX}/lib/pkgconfig:${PREFIX}/bin/pkg-config:${PREFIX}/lib/pkg-config"
