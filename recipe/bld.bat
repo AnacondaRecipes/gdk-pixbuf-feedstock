@@ -27,7 +27,7 @@ set ^"MESON_OPTIONS=^
   -Dintrospection=enabled ^
   -Ddocumentation=false ^
   -Dtests=false ^
-  -Dinstalled_tests=false"^
+  -Dinstalled_tests=false"
 
 meson setup --help
 
