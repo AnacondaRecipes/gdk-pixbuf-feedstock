@@ -19,16 +19,15 @@ set PATH=%LIBRARY_BIN%;%PREFIX%\bin;%PATH%
 set ^"MESON_OPTIONS=^
   --prefix="%LIBRARY_PREFIX%" ^
   --wrap-mode=nofallback ^
-  --buildtype=release ^
   --backend=ninja ^
   -Dc_std=c99 ^
   -Dgtk_doc=false ^
-  -Dinstalled_tests=false ^
   -Dman=false ^
   -Drelocatable=true ^
   -Dintrospection=enabled ^
-  -D docs=false ^
- ^"
+  -Ddocumentation=false ^
+  -Dtests=false ^
+  -Dinstalled_tests=false"
 
 meson setup --help
 
