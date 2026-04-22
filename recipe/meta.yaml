@@ -32,6 +32,7 @@ requirements:
     - ninja
     - gettext  # [unix]
     - perl 5.* # [win]
+    - setuptools # [win]
   host:
     - gobject-introspection
     - glib {{ glib }}
