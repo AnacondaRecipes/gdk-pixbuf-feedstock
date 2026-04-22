@@ -32,8 +32,8 @@ requirements:
     - ninja
     - gettext     # [unix]
     - perl 5.*    # [win]
-    # Needed for distutils used by g-ir-scanner on Python 3.12+
-    - setuptools  # [win and py==312]
+    # Needed for distutils used by g-ir-scanner
+    - setuptools  # [win]
   host:
     - gobject-introspection
     - glib {{ glib }}
