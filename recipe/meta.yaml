@@ -1,6 +1,6 @@
 {% set name = "gdk-pixbuf" %}
-{% set version = "2.44.4" %}
-{% set sha256 = "93a1aac3f1427ae73457397582a2c38d049638a801788ccbd5f48ca607bdbd17" %}
+{% set version = "2.44.6" %}
+{% set sha256 = "140c2d0b899fcf853ee92b26373c9dc228dbcde0820a4246693f4328a27466fa" %}
 
 package:
     name: {{ name|lower }}
