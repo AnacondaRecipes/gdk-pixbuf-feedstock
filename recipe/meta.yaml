@@ -30,9 +30,10 @@ requirements:
     - meson >=1.5
     - pkg-config
     - ninja
-    - gettext  # [unix]
-    - perl 5.* # [win]
-    - setuptools # [win]
+    - gettext     # [unix]
+    - perl 5.*    # [win]
+    # Needed for distutils used by g-ir-scanner on Python 3.12+
+    - setuptools  # [win and py==312]
   host:
     - gobject-introspection
     - glib {{ glib }}
