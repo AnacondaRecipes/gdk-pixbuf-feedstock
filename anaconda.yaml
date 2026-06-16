@@ -1,6 +1,7 @@
 anaconda_config_version: 1
 upstream_sources:
-  - github:
-      identifier: GNOME/gdk-pixbuf
-      use_max_tag: true
-      include_regex: ^\d+\.\d*[02468]\.\d+$
+  - webpage:
+      url: https://download.gnome.org/sources/gdk-pixbuf/
+      regex: href="(2\.[\d.]+)/"
+    packages:
+      - gdk-pixbuf
