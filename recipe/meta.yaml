@@ -14,7 +14,6 @@ source:
 build:
   number: 0
   ignore_run_exports:
-    - glib
     - zlib
   missing_dso_whitelist:
     - "*"
@@ -40,8 +39,6 @@ requirements:
     - libtiff {{ libtiff }}
     - libpng {{ libpng }}
     - zlib {{ zlib }}
-  run:
-    - glib >=2.56.0
 
 test:
   requires:
