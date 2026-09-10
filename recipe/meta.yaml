@@ -34,7 +34,7 @@ requirements:
     - setuptools  # [win]
   host:
     - gobject-introspection 1.86.0
-    - glib {{ glib }}
+    - glib >=2.56.0
     - libjpeg-turbo {{ libjpeg_turbo }}
     - libtiff {{ libtiff }}
     - libpng {{ libpng }}
