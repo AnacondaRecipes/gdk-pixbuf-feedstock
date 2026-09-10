@@ -79,3 +79,5 @@ extra:
     - pkgw
   skip-lints:
     - python_build_tools_in_host
+    # use upstream glib pinning https://github.com/GNOME/gdk-pixbuf/blob/2.44.8/meson.build#L61
+    - host_section_needs_exact_pinnings
